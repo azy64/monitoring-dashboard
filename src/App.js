@@ -1,23 +1,22 @@
 import logo from './logo.svg';
+import Login from './components/auth/login/Login';
 import './App.css';
+import useLoginStore from './store/mystore';
+import LoadingComponent from './components/loading/LoadingComponent';
+import Dashboard from './components/dashboard/Dashboard';
 
 function App() {
+  const isAuthenticated = useLoginStore((state)=>state.isAuthenticated);
+  const loading = useLoginStore((state)=>state.loading);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        loading && <LoadingComponent/>
+      }
+      {
+        (isAuthenticated==false) ?<Login/>:(<Dashboard/>)
+      }
+      
     </div>
   );
 }

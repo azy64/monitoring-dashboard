@@ -22,6 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+
 }
 
 .App-link {
@@ -35,4 +36,78 @@
   to {
     transform: rotate(360deg);
   }
+}
+/*
+* here we start the component for user-monitoring*********
+*/
+
+.panel {
+  display: block;
+  min-height: 50px;
+  box-shadow: 1px 6px 9px rgba(10,10,10,.4);
+  border-radius: 3%;
+}
+.login{
+  width: 400px;
+  margin: auto;
+  margin-top: 8%;
+}
+.navigation{
+  height: 100vh;
+  background-color: #282c34;
+}
+#menu a{
+  text-decoration: none !important;
+  color: white !important;
+}
+#menu a:hover{
+  color: #EB1144 !important;
+}
+
+.table-tunaweza tbody tr td:nth-child(odd){
+  font-weight: bolder;
+}
+
+.tunaweza-table {
+  --tunaweza-border-color: #dee2e6;
+  border-color: var(--tunaweza-border-color);
+  border-collapse: collapse;
+  cursor: pointer;
+}
+
+.tunaweza-table td, .tunaweza-table th {
+  border-bottom: 1px outset var(--tunaweza-border-color);
+  border-top: 1px outset transparent;
+  border-left: 1px outset transparent;
+  border-right: 1px outset transparent;
+  padding: 4px;
+  border-collapse: separate;
+  min-width: 100px;
+}
+.tunaweza-table td:hover{
+  cursor: pointer;
+  
+  border-left: 1px inset var(--tunaweza-border-color);
+  box-shadow: 5px 5px 5px rgba(10,10,10,.4);
+}
+.tunaweza-table .sorted-up{
+  border-top: 5px solid var(--tunaweza-border-color);
+  border-left: 5px outset transparent;
+  border-right: 5px outset transparent;
+  border-bottom: 5px outset transparent;
+  width: 10px;
+  display: inline-block;
+  margin-left:3px;
+  vertical-align: middle;
+}
+
+.tunaweza-table .sorted-down{
+  border-top: 5px solid transparent;
+  border-left: 5px outset transparent;
+  border-right: 5px outset transparent;
+  border-bottom: 5px outset var(--tunaweza-border-color);
+  width: 10px;
+  display: inline-block;
+  margin-left:3px;
+  vertical-align: 1px;
 }

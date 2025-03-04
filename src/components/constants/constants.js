@@ -1,0 +1,15 @@
+const CONSTANTS={
+    BASE_URL:"http://localhost:8000/",
+    AUTH_LOGIN:"http://localhost:8000/auth/login",
+    AUTH_REGISTER: "http://localhost:8000/auth/register",
+    STORE_NAME:"user-monitoring",
+    COMPANY_URL:"users/company",
+    CUSTOMER_URL:"users/customers",
+    AGENT_URL:"users/agent",
+    AROUND_URL:"users/around",
+    CONTROL_POINT_URL:"users/control-point",
+    CHECK_POINT_URL:"users/check-point",
+    SHIFT_URL:"users/shift",
+}
+
+export default CONSTANTS;
