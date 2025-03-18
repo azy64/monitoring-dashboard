@@ -1,9 +1,10 @@
 const CONSTANTS={
     BASE_URL:"http://localhost:8000/",
+    BASE_URL_USERS:"http://localhost:8000/users/",
     AUTH_LOGIN:"http://localhost:8000/auth/login",
     AUTH_REGISTER: "http://localhost:8000/auth/register",
     STORE_NAME:"user-monitoring",
-    COMPANY_URL:"users/company",
+    COMPANY_URL:"company",
     CUSTOMER_URL:"users/customers",
     AGENT_URL:"users/agent",
     AROUND_URL:"users/around",

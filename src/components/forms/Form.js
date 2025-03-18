@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 
-const Form=({subject,onChangeHandler, objectFormType,saveHandler})=>{
+const Form= React.memo(({subject,onChangeHandler, objectFormType,saveHandler})=>{
     const [errors,setErrors] = useState({});
-    const validate=()=>{
+    const validate= useCallback(()=>{
         let isValid=true;
         const newErrors={};
         Object.keys(subject).map(field=>{
@@ -13,13 +13,13 @@ const Form=({subject,onChangeHandler, objectFormType,saveHandler})=>{
         });
         setErrors(newErrors);
         return isValid;
-    }
-    const submitHandler=(e)=>{
+    })
+    const submitHandler=useCallback((e)=>{
         e.preventDefault();
         if(validate()){
             saveHandler()
         }
-    }
+    })
     return (
         
         <div>
@@ -27,7 +27,7 @@ const Form=({subject,onChangeHandler, objectFormType,saveHandler})=>{
                 {
                       Object.keys(subject).map(element => (
                         subject[element] instanceof Object || subject[element]===null ?null:
-                            <div key={element} className="md-12 text-start">
+                            <div key={objectFormType[`${element}`]?.id} className="md-12 text-start">
                                 <label className="form- md-12 p-1 text-capitalize fw-medium" htmlFor={element}>
                                {objectFormType[element]?objectFormType[element]?.label:element}
                             </label>
@@ -35,6 +35,7 @@ const Form=({subject,onChangeHandler, objectFormType,saveHandler})=>{
                             <input type={objectFormType[element]?objectFormType[element]?.type:"text"} data-source={element}
                                 id={element}
                                 className="form-control"
+                                checked={objectFormType[element]?.type==="radio"&& subject[element]==="true"?true:false}
                                 disabled={objectFormType[element]?objectFormType[element]?.disable:false}
                                 value={subject[element]?subject[element]:""} 
                                 onChange={onChangeHandler}
@@ -53,7 +54,7 @@ const Form=({subject,onChangeHandler, objectFormType,saveHandler})=>{
             </form>
         </div>
     )
-}
+});
 const style={
     error:{
         color:"red"

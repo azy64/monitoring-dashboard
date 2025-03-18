@@ -11,12 +11,12 @@ const Customer = () => {
     const findCustomers = useLoginStore(state => state.findCustomers);
     const [client, setClient] = useState([]);
     const coldefs = [
-        { field: "name", headerName: "NOM" },
-        { field: "email", headerName: "EMAIL" },
-        { field: "phone", headerName: "TELEPHONE", width: 12 },
-        { field: "referenceNumber", headerName: "REFERENCE", width: 15 },
-        { field: "siret", headerName: "SIRET" },
-        { field: "address", headerName: "ADDRESS" }
+        { field: "name", headerName: "NOM", width:120},
+        { field: "email", headerName: "EMAIL",width:120 },
+        { field: "phone", headerName: "TELEPHONE", width: 120 },
+        { field: "referenceNumber", headerName: "REFERENCE", width: 120 },
+        { field: "siret", headerName: "SIRET",width:120 },
+        { field: "address", headerName: "ADDRESS",width:120 }
     ];
 
     useEffect(() => {

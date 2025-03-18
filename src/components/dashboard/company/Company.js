@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useLoginStore from "../../../store/mystore";
-import CONSTANTS from "../../constants/constants";
 import { Tab, Table, Tabs } from "react-bootstrap";
 import Form from "../../forms/Form";
-import { type } from "@testing-library/user-event/dist/type";
 import companyFormType from "./companyFormType";
 import customerFormType from "../customer/customerFormType";
+//import { Badge } from "@/components/ui/badge";
 
 const Company = () => {
     const findMyCompany = useLoginStore(state => state.findMyCompany);
+    const user = useLoginStore(state=>state.user);
     const token = useLoginStore(state => state.token);
     const company = useLoginStore(state => state.company);
     const updateMyCompany= useLoginStore(state=>state.updateMyCompany);
@@ -19,18 +19,19 @@ const Company = () => {
         referenceNumber:"",siret:"",phone:"",email:"", company:{id:company.id} };
 
     useEffect(() => {
-        findMyCompany(token);
+        findMyCompany(token,user.id);
     }, []);
-    const clickHandler = (e) => {
+    const clickHandler = useCallback((e) => {
         const attribute= e.target.dataset.source;
         company[attribute]=e.target.value;
         useLoginStore.setState((state)=>({company:{
             ...state.company,
             [`${attribute}`]:company[attribute]
-        }}))
+        }}));
+        //e.target.focused()
 
-    }
-    const addCustomer=(event)=>{
+    },[]);
+    const addCustomer=useCallback((event)=>{
         const attribute= event.target.dataset.source;
         const value=event.target.value;
         //nouveauClient[`${attribute}`]=value;
@@ -38,8 +39,9 @@ const Company = () => {
             ...client,
             [`${attribute}`]:value
         })
-        console.log("customer:==",client);
-    }
+        //console.log("customer:==",client);
+        //event.target.focus();
+    },[])
     const save=()=>{
         updateMyCompany(token,company);
     }
@@ -121,6 +123,7 @@ const Company = () => {
                 />
                 </Tab>
             </Tabs>
+
         </div>
     )
 }

@@ -9,7 +9,7 @@ const setHeaderAuthorization=(token)=>{
     return requestHeader;
 }
 
-export const getCompany=(token,userId,set)=>{
+export const getMyAround=(token,set)=>{
     fetch(CONSTANTS.BASE_URL_USERS+userId+"/"+CONSTANTS.COMPANY_URL,{
         method:"GET",
         headers:setHeaderAuthorization(token)
@@ -21,7 +21,7 @@ export const getCompany=(token,userId,set)=>{
     })
 }
 
-export const getOneCompany=(token, set,id)=>{
+export const getOnearound=(token, set,id)=>{
     const requestHeader = setHeaderAuthorization(token);
     fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL+"/"+id,{
         method:"GET",
@@ -35,7 +35,7 @@ export const getOneCompany=(token, set,id)=>{
     })
 }
 
-export const postCompany=(token, set, payload)=>{
+export const postAround=(token, set, payload)=>{
     const requestHeader = setHeaderAuthorization(token);
     fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL,{
         method:"POST",
@@ -50,7 +50,7 @@ export const postCompany=(token, set, payload)=>{
     })
 }
 
-export const putCompany=(token, set, payload,id)=>{
+export const putAround=(token, set, payload,id)=>{
     const requestHeader = setHeaderAuthorization(token);
     fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL+"/"+id,{
         method:"PUT",
@@ -65,7 +65,7 @@ export const putCompany=(token, set, payload,id)=>{
     })
 }
 
-export const deleteCompany=(token, set,id)=>{
+export const deleteAround=(token, set,id)=>{
     const requestHeader = setHeaderAuthorization(token);
     fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL+"/"+id,{
         method:"DELETE",

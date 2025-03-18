@@ -53,8 +53,8 @@ const useLoginStore = create(persist((set)=>({
             loading:!state.loading
         }))
     },
-    findMyCompany(token){
-        getCompany(token, set);
+    findMyCompany(token,userId){
+        getCompany(token,userId,set);
     },
     updateMyCompany(token,company){
         try{
