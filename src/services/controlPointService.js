@@ -8,22 +8,21 @@ const setHeaderAuthorization=(token)=>{
     requestHeader.set("Accept","*");
     return requestHeader;
 }
-const RESSOURCE_URL= CONSTANTS.BASE_URL_USERS+CONSTANTS.CUSTOMER_URL;
-const RESOURCE_POST_URL=CONSTANTS.BASE_URL_USERS+CONSTANTS.CUSTOMER_POST_URL;
+const RESSOURCE_URL= CONSTANTS.BASE_URL_USERS+CONSTANTS.CONTROL_POINT_URL;
 
-export const getCustomer=(token,set)=>{
-    fetch(RESSOURCE_URL,{
+export const getControlPoints=(token,set,aroundId)=>{
+    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.AROUND_POST_URL+"/"+aroundId+"/"+CONSTANTS.CONTROL_POINT_URL,{
         method:"GET",
         headers:setHeaderAuthorization(token)
     })
     .then(result=>result.json())
     .then(data=>{
         console.log("data received:",data);
-        set({customers:data})
+        set({controlPoints:data})
     })
 }
 
-export const getOneCustomer=(token, id)=>{
+export const getOneControlPoint=(token, id)=>{
     const requestHeader = setHeaderAuthorization(token);
     fetch(RESSOURCE_URL+"/"+id,{
         method:"GET",
@@ -37,9 +36,9 @@ export const getOneCustomer=(token, id)=>{
     })
 }
 
-export const postCustomer=(token, payload,callBack)=>{
+export const postControlPoint=(token, payload,callBack)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(RESOURCE_POST_URL,{
+    fetch(RESSOURCE_URL,{
         method:"POST",
         headers:requestHeader,
         body:JSON.stringify(payload)
@@ -53,9 +52,9 @@ export const postCustomer=(token, payload,callBack)=>{
     })
 }
 
-export const putCustomer=(token, payload,id,callBack)=>{
+export const putControlPoint=(token, payload,id)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(RESOURCE_POST_URL+"/"+id,{
+    fetch(RESSOURCE_URL+"/"+id,{
         method:"PUT",
         headers:requestHeader,
         body:JSON.stringify(payload)
@@ -63,19 +62,19 @@ export const putCustomer=(token, payload,id,callBack)=>{
     })
     .then(result=>result.json())
     .then(data=>{
-        //console.log("data received:",data);
-        callBack(data);
+        console.log("data received:",data);
+        //set({company:data})
     })
 }
 
-export const deleteCustomer=(token, id)=>{
+export const deleteControlPoint=(token, id)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(RESOURCE_POST_URL+"/"+id,{
+    fetch(RESSOURCE_URL+"/"+id,{
         method:"DELETE",
         headers:requestHeader,
 
     })
-    .then(result=>result.text())
+    .then(result=>result.json())
     .then(data=>{
         console.log("data received:",data);
         //set({company:null})

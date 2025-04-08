@@ -13,8 +13,7 @@ const Company = () => {
     const company = useLoginStore(state => state.company);
     const updateMyCompany= useLoginStore(state=>state.updateMyCompany);
     const saveNewCustomer = useLoginStore(state=>state.saveNewCustomer);
-    const [client,setClient]= useState({name:"",address:"",
-        referenceNumber:"",siret:"",phone:"",email:"",company:{id:company.id}});
+    const [client,setClient]= useState({name:"",address:"",referenceNumber:"",siret:"",phone:"",email:""});
     const customerInitialValues={id:"",name:"",address:"",
         referenceNumber:"",siret:"",phone:"",email:"", company:{id:company.id} };
 
@@ -31,22 +30,20 @@ const Company = () => {
         //e.target.focused()
 
     },[]);
-    const addCustomer=useCallback((event)=>{
+    const addCustomer=(event)=>{
         const attribute= event.target.dataset.source;
         const value=event.target.value;
-        //nouveauClient[`${attribute}`]=value;
         setClient({
             ...client,
             [`${attribute}`]:value
         })
-        //console.log("customer:==",client);
-        //event.target.focus();
-    },[])
+    }
     const save=()=>{
         updateMyCompany(token,company);
     }
     const saveClient=()=>{
-        saveNewCustomer(token,client);
+        saveNewCustomer(token,{...client,company:{id:company.id}});
+        console.log("client:",{...client,company:{id:company.id}});
         setClient(customerInitialValues);
     }
 
@@ -120,6 +117,7 @@ const Company = () => {
                 <Form subject={client} onChangeHandler={addCustomer}
                     objectFormType={customerFormType}
                     saveHandler={saveClient}
+                    title="Add a new customer"
                 />
                 </Tab>
             </Tabs>

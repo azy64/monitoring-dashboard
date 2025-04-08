@@ -2,8 +2,11 @@ import { create } from "zustand";
 import CONSTANTS from "../components/constants/constants";
 import { persist } from "zustand/middleware";
 import { getCompany, putCompany } from "../services/companyService";
-import { getCustomer, postCustomer } from "../services/customerService";
+import { deleteCustomer, getCustomer, postCustomer, putCustomer } from "../services/customerService";
+import { deleteAround, getMyArounds, postAround } from "../services/aroundService";
+import { deleteControlPoint, getControlPoints, postControlPoint } from "../services/controlPointService";
 //import { combine } from "zustand/middleware";
+
 
 
 const useLoginStore = create(persist((set)=>({
@@ -14,6 +17,11 @@ const useLoginStore = create(persist((set)=>({
     loading:false,
     company:{},
     customers:[],
+    arounds:[],
+    agents:[],
+    controlPoints:[],
+    shifts:[],
+    checkPoints:[],
     login(username,password){
         let requestHeader = new Headers();
         requestHeader.set("Content-Type","application/json");
@@ -71,16 +79,87 @@ const useLoginStore = create(persist((set)=>({
         try{
             set({loading:true});
             //console.log("operation is starting...:",customer);
-            postCustomer(token,set,customer);
+            postCustomer(token,customer,refreshCustomers);
             set({loading:false});
         }
         catch(error){
             set({loading:false});
         }
     },
+    updateCustomer(token,customer){
+        putCustomer(token,customer,customer.id,updated)
+    },
     findCustomers(token){
         getCustomer(token,set);
-    }
+    },
+    removeCustomer(token,customerId){
+        deleteCustomer(token,customerId);
+        updateCustomers(customerId);
+    },
+    findArounds(token,customerId){
+        getMyArounds(token,set,customerId);
+    },
+    saveAround(token,around){
+        postAround(token,around,updateArounds);
+    },
+    removeAround(token,aroundId){
+        deleteAround(token,aroundId);
+        deleteElementInArounds(aroundId);
+    },
+    addInSetArounds(arounds,around){
+        const value = arounds.find(item=>item.label===around.label);
+        if(value===undefined)
+            set({arounds:[...arounds,around]})
+    },
+    findControlPoints(token,aroundId){
+        getControlPoints(token,set,aroundId);
+    },
+    saveControlPoint(token,controlPoint){
+        postControlPoint(token,controlPoint,refreshControlPoints);
+    },
+    deleteControlPointFrom(token,controlPointId){
+        deleteControlPoint(token,controlPointId);
+        updateControlPoints(controlPointId);
+    },
 }),{name:CONSTANTS.STORE_NAME}));
 
+const updateArounds=(value)=>{
+    useLoginStore.setState((state)=>({...state,
+    arounds:[...state.arounds,value]
+ })) 
+}
+const updateControlPoints=(id)=>{
+    useLoginStore.setState((state)=>({...state,
+        controlPoints:[...state.controlPoints].filter(item=>item.id!=id)
+     })) 
+}
+
+const refreshControlPoints=(value)=>{
+    useLoginStore.setState((state)=>({...state,
+        controlPoints:[...state.controlPoints,value]
+     })) 
+}
+const updateCustomers=(customerId)=>{
+    useLoginStore.setState((state)=>({...state,
+    customers:[...state.customers].filter(item=>item.id!=customerId)
+ })) 
+}
+const refreshCustomers=(customers)=>{
+    useLoginStore.setState((state)=>({...state,
+        customers:customers
+     })) 
+}
+const deleteElementInArounds=(id)=>{
+    useLoginStore.setState((state)=>({...state,
+        arounds:[...state.arounds.filter(item=>item.id!=id)]
+     })) 
+} 
+const updated=(data)=>{
+    console.log("voici la donée:",data);
+    updateCustomers(data.id)
+    useLoginStore.setState((state)=>({...state,
+        customers:[...state.customers,data]
+     }))
+     //console.log("customers:===:",useLoginStore.getState().customers);
+}
 export default useLoginStore;

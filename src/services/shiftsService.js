@@ -8,11 +8,10 @@ const setHeaderAuthorization=(token)=>{
     requestHeader.set("Accept","*");
     return requestHeader;
 }
-const RESSOURCE_URL= CONSTANTS.BASE_URL_USERS+CONSTANTS.CUSTOMER_URL;
-const RESOURCE_POST_URL=CONSTANTS.BASE_URL_USERS+CONSTANTS.CUSTOMER_POST_URL;
+const RESSOURCE_URL= CONSTANTS.BASE_URL_USERS+CONSTANTS.SHIFT_URL;
 
-export const getCustomer=(token,set)=>{
-    fetch(RESSOURCE_URL,{
+export const getShifts=(token,set,agentId)=>{
+    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.AGENT_URL+"/"+agentId+"/"+CONSTANTS.SHIFT_URL,{
         method:"GET",
         headers:setHeaderAuthorization(token)
     })
@@ -23,7 +22,7 @@ export const getCustomer=(token,set)=>{
     })
 }
 
-export const getOneCustomer=(token, id)=>{
+export const getOneShift=(token, id)=>{
     const requestHeader = setHeaderAuthorization(token);
     fetch(RESSOURCE_URL+"/"+id,{
         method:"GET",
@@ -37,9 +36,9 @@ export const getOneCustomer=(token, id)=>{
     })
 }
 
-export const postCustomer=(token, payload,callBack)=>{
+export const postShift=(token, payload)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(RESOURCE_POST_URL,{
+    fetch(RESSOURCE_URL,{
         method:"POST",
         headers:requestHeader,
         body:JSON.stringify(payload)
@@ -48,14 +47,13 @@ export const postCustomer=(token, payload,callBack)=>{
     .then(result=>result.json())
     .then(data=>{
         console.log("data received:",data);
-        callBack(data);
         //set({company:data.company})
     })
 }
 
-export const putCustomer=(token, payload,id,callBack)=>{
+export const putShift=(token, payload,id)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(RESOURCE_POST_URL+"/"+id,{
+    fetch(RESSOURCE_URL+"/"+id,{
         method:"PUT",
         headers:requestHeader,
         body:JSON.stringify(payload)
@@ -63,19 +61,19 @@ export const putCustomer=(token, payload,id,callBack)=>{
     })
     .then(result=>result.json())
     .then(data=>{
-        //console.log("data received:",data);
-        callBack(data);
+        console.log("data received:",data);
+        //set({company:data})
     })
 }
 
-export const deleteCustomer=(token, id)=>{
+export const deleteShift=(token, id)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(RESOURCE_POST_URL+"/"+id,{
+    fetch(RESSOURCE_URL+"/"+id,{
         method:"DELETE",
         headers:requestHeader,
 
     })
-    .then(result=>result.text())
+    .then(result=>result.json())
     .then(data=>{
         console.log("data received:",data);
         //set({company:null})

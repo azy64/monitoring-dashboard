@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 
-const Form= React.memo(({subject,onChangeHandler, objectFormType,saveHandler})=>{
+const Form= React.memo(({subject,onChangeHandler, objectFormType,saveHandler,title})=>{
     const [errors,setErrors] = useState({});
     const validate= useCallback(()=>{
         let isValid=true;
@@ -23,6 +23,7 @@ const Form= React.memo(({subject,onChangeHandler, objectFormType,saveHandler})=>
     return (
         
         <div>
+            <h3>{title}</h3>
             <form className="md-8 m-3" onSubmit={submitHandler}>
                 {
                       Object.keys(subject).map(element => (
@@ -32,6 +33,7 @@ const Form= React.memo(({subject,onChangeHandler, objectFormType,saveHandler})=>
                                {objectFormType[element]?objectFormType[element]?.label:element}
                             </label>
                             <div className="">
+                                
                             <input type={objectFormType[element]?objectFormType[element]?.type:"text"} data-source={element}
                                 id={element}
                                 className="form-control"
