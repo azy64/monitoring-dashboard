@@ -154,3 +154,12 @@
       height: 250px;
       overflow-y: scroll;
     }
+
+    .back{
+      border:0;
+      font-size: 35px;
+      background-color: transparent;
+    }
+    .back :hover{
+      border-bottom: 1px solid red;
+    }

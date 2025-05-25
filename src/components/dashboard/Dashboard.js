@@ -9,6 +9,7 @@ import Around from "./site/Around";
 import ControlPoint from "./control-point/ControlPoint";
 import Agent from "./agent/Agent";
 import NavBar from "./NavBar";
+import AgentView from "./agent/AgentView";
 
 const Dashboard = () => {
     return (
@@ -26,6 +27,7 @@ const Dashboard = () => {
                         <Route path="/around" exact Component={Around} />
                         <Route path="/agent" exact Component={Agent} />
                         <Route path="/control-point" exact Component={ControlPoint} />
+                        <Route path="/agent-view" exact Component={AgentView} />
                     </Routes>
                 </Col>
             </Router>

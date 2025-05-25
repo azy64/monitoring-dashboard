@@ -10,15 +10,14 @@ const setHeaderAuthorization=(token)=>{
 }
 const RESSOURCE_URL= CONSTANTS.BASE_URL_USERS+CONSTANTS.SHIFT_URL;
 
-export const getShifts=(token,set,agentId)=>{
-    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.AGENT_URL+"/"+agentId+"/"+CONSTANTS.SHIFT_URL,{
+export const getShifts=(token,agentId,callBack)=>{
+    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.AGENT_POST_URL+"/"+agentId+"/"+CONSTANTS.SHIFT_URL,{
         method:"GET",
         headers:setHeaderAuthorization(token)
     })
     .then(result=>result.json())
     .then(data=>{
-        console.log("data received:",data);
-        set({customers:data})
+        callBack(data)
     })
 }
 

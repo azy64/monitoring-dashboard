@@ -10,15 +10,15 @@ const setHeaderAuthorization=(token)=>{
 }
 const RESSOURCE_URL= CONSTANTS.BASE_URL_USERS+CONSTANTS.CHECK_POINT_URL;
 
-export const getCheckPoints=(token,set,agentId)=>{
-    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.AGENT_URL+"/"+agentId+"/"+CONSTANTS.CHECK_POINT_URL,{
+export const getCheckPoints=(token,agentId,callBack)=>{
+    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.AGENT_POST_URL+"/"+agentId+"/"+CONSTANTS.CHECK_POINT_URL,{
         method:"GET",
         headers:setHeaderAuthorization(token)
     })
     .then(result=>result.json())
     .then(data=>{
-        console.log("data received:",data);
-        set({customers:data})
+        //console.log("checkPoints received:",data);
+        callBack(data)
     })
 }
 

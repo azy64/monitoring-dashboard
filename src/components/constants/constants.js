@@ -1,8 +1,10 @@
+const port="8000"
+const server_host= `localhost:${port}`;
 const CONSTANTS={
     BASE_URL:"http://localhost:8000/",
-    BASE_URL_USERS:"http://localhost:8000/users/",
-    AUTH_LOGIN:"http://localhost:8000/auth/login",
-    AUTH_REGISTER: "http://localhost:8000/auth/register",
+    BASE_URL_USERS:`http://${server_host}/users/`,
+    AUTH_LOGIN:`http://${server_host}/auth/login`,
+    AUTH_REGISTER: `http://${server_host}/auth/register`,
     STORE_NAME:"user-monitoring",
     COMPANY_URL:"company",
     CUSTOMER_URL:"customers",
@@ -36,6 +38,19 @@ const CONSTANTS={
         {field:"birth", headerName:"DATE DE NAISSANCE", width:120},
         {field:"address",headerName:"ADRESSE POSTALE",width:120},
         {field:"pictureUser", headerName:"PHOTO AGENT",width:120}
+    ],
+    SHIFT_COLUMNS:[
+        {field: "shiftStarTime", headerName:"Start", width:150,valueGetter: (value) => value && (new Date(value)).toLocaleTimeString()},
+        {field:"shiftEndTime", headerName:"End", width:120,type:"Date",valueGetter: (value) => value && (new Date(value)).toLocaleTimeString()},
+        {field:"shifDate",headerName:"Date",width:120,valueGetter: (value) => value && (new Date(value)).toDateString()},
+        {field:"around.address", valueGetter:(value,row)=> row.around.address,headerName:"Address", width:150},
+        {field:"customer.id",valueGetter:(value,row)=> row.around.customer.id, headerName:"Customer ID", width:120},
+    ],
+    CHECK_POINTS_COLUMNS:[
+        {field: "checkedDate", headerName:"Day", width:150,valueGetter: (value) => value && (new Date(value)).toLocaleString()},
+        {field:"checkedPresence", headerName:"Presence", width:120,valueGetter: (value) => value.checkedPresence==="1"?true:false},
+        {field:"commentString",headerName:"Notice",width:160},
+        {field:"controlPointId",headerName:"Control Point ID", width:190}
     ]
 }
 
