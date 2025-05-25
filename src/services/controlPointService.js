@@ -8,22 +8,23 @@ const setHeaderAuthorization=(token)=>{
     requestHeader.set("Accept","*");
     return requestHeader;
 }
+const RESSOURCE_URL= CONSTANTS.BASE_URL_USERS+CONSTANTS.CONTROL_POINT_URL;
 
-export const getCompany=(token,userId,set)=>{
-    fetch(CONSTANTS.BASE_URL_USERS+userId+"/"+CONSTANTS.COMPANY_URL,{
+export const getControlPoints=(token,set,aroundId)=>{
+    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.AROUND_POST_URL+"/"+aroundId+"/"+CONSTANTS.CONTROL_POINT_URL,{
         method:"GET",
         headers:setHeaderAuthorization(token)
     })
     .then(result=>result.json())
     .then(data=>{
-        //console.log("data received:",data);
-        set({company:data[0]})
+        console.log("data received:",data);
+        set({controlPoints:data})
     })
 }
 
-export const getOneCompany=(token, set,id)=>{
+export const getOneControlPoint=(token, id)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL+"/"+id,{
+    fetch(RESSOURCE_URL+"/"+id,{
         method:"GET",
         headers:requestHeader,
 
@@ -31,13 +32,13 @@ export const getOneCompany=(token, set,id)=>{
     .then(result=>result.json())
     .then(data=>{
         console.log("data received:",data);
-        set({company:data})
+        //set({company:data})
     })
 }
 
-export const postCompany=(token, set, payload)=>{
+export const postControlPoint=(token, payload,callBack)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL,{
+    fetch(RESSOURCE_URL,{
         method:"POST",
         headers:requestHeader,
         body:JSON.stringify(payload)
@@ -46,13 +47,14 @@ export const postCompany=(token, set, payload)=>{
     .then(result=>result.json())
     .then(data=>{
         console.log("data received:",data);
-        set({company:data.company})
+        callBack(data);
+        //set({company:data.company})
     })
 }
 
-export const putCompany=(token, set, payload,id)=>{
+export const putControlPoint=(token, payload,id)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL+"/"+id,{
+    fetch(RESSOURCE_URL+"/"+id,{
         method:"PUT",
         headers:requestHeader,
         body:JSON.stringify(payload)
@@ -61,13 +63,13 @@ export const putCompany=(token, set, payload,id)=>{
     .then(result=>result.json())
     .then(data=>{
         console.log("data received:",data);
-        set({company:data})
+        //set({company:data})
     })
 }
 
-export const deleteCompany=(token, set,id)=>{
+export const deleteControlPoint=(token, id)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL+"/"+id,{
+    fetch(RESSOURCE_URL+"/"+id,{
         method:"DELETE",
         headers:requestHeader,
 
@@ -75,6 +77,6 @@ export const deleteCompany=(token, set,id)=>{
     .then(result=>result.json())
     .then(data=>{
         console.log("data received:",data);
-        set({company:null})
+        //set({company:null})
     })
 }

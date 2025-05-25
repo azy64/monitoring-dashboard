@@ -9,21 +9,22 @@ const setHeaderAuthorization=(token)=>{
     return requestHeader;
 }
 
-export const getCompany=(token,userId,set)=>{
-    fetch(CONSTANTS.BASE_URL_USERS+userId+"/"+CONSTANTS.COMPANY_URL,{
+export const getMyAgents=(token,companyId,callBack)=>{
+    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL+"/"+companyId+"/"+CONSTANTS.AGENT_URL,{
         method:"GET",
         headers:setHeaderAuthorization(token)
     })
     .then(result=>result.json())
     .then(data=>{
         //console.log("data received:",data);
-        set({company:data[0]})
+        callBack(data);
+        //set({agents:data})
     })
 }
 
-export const getOneCompany=(token, set,id)=>{
+export const getOneAgent=(token, id)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL+"/"+id,{
+    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.AROUND_URL+"/"+id,{
         method:"GET",
         headers:requestHeader,
 
@@ -31,13 +32,13 @@ export const getOneCompany=(token, set,id)=>{
     .then(result=>result.json())
     .then(data=>{
         console.log("data received:",data);
-        set({company:data})
+        ///set({company:data})
     })
 }
 
-export const postCompany=(token, set, payload)=>{
+export const postAgent=(token, payload,callBack)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL,{
+    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.AGENT_POST_URL,{
         method:"POST",
         headers:requestHeader,
         body:JSON.stringify(payload)
@@ -45,14 +46,14 @@ export const postCompany=(token, set, payload)=>{
     })
     .then(result=>result.json())
     .then(data=>{
-        console.log("data received:",data);
-        set({company:data.company})
+        console.log("agent saved:", data);
+        callBack(data);
     })
 }
 
-export const putCompany=(token, set, payload,id)=>{
+export const putAgent=(token, payload,id)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL+"/"+id,{
+    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.AGENT_POST_URL+"/"+id,{
         method:"PUT",
         headers:requestHeader,
         body:JSON.stringify(payload)
@@ -61,20 +62,20 @@ export const putCompany=(token, set, payload,id)=>{
     .then(result=>result.json())
     .then(data=>{
         console.log("data received:",data);
-        set({company:data})
+        //set({company:data})
     })
 }
 
-export const deleteCompany=(token, set,id)=>{
+export const deleteAgent=(token,id)=>{
     const requestHeader = setHeaderAuthorization(token);
-    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.COMPANY_URL+"/"+id,{
+    fetch(CONSTANTS.BASE_URL_USERS+CONSTANTS.AGENT_POST_URL+"/"+id,{
         method:"DELETE",
         headers:requestHeader,
 
     })
-    .then(result=>result.json())
+    .then(result=>result.text())
     .then(data=>{
         console.log("data received:",data);
-        set({company:null})
+        //set({company:null})
     })
 }
