@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useLoginStore from "../../../store/mystore";
 import AlertBlog from "../../forms/AlertBlog";
 import Form from "../../forms/Form";
@@ -10,13 +10,24 @@ const Agent = () => {
     const agents = useLoginStore(state => state.agents);
     const token = useLoginStore(state => state.token);
     const company = useLoginStore(state => state.company);
+    const saveAgent= useLoginStore(state=>state.saveAgent);
+    useEffect(()=>{
+        //console.log("agents=====:",agents);
+    })
     const objectAgent ={
         prenom:"",nom:"",username:"",phoneNumber:"",
-        pictureUser:"",password:"",address:"",birth:""
+        //pictureUser:"",
+        password:"",address:"",
+        //typeUser:[{id:4,value:"agent"}, {id:2,value:"customer"},{id:1, value:"user"}]
     };
-    const [agent,setAgent]= useState(objectAgent);
+    const objectAgentToSave ={
+        prenom:"",nom:"",username:"",phoneNumber:"", birth:"",
+        password:"",address:"",
+
+    };
+    const [agent,setAgent]= useState(objectAgentToSave);
     const [openDialog, setOpenDialog] = useState(false);
-    console.log("company:::", company);
+    //console.log("company:::", company);
     const closeOpenHandler = () => {
         setOpenDialog(openDialog ? false : true);
     }
@@ -29,7 +40,8 @@ const Agent = () => {
         })
     }
     const createAgent = () => {
-        
+        const agentToSave ={...agent,typeUser:{id:4},employer:{id:company.id},role:"AGENTS"}
+        saveAgent(token,agentToSave);
     }
     const buttons = [{
         title: "",

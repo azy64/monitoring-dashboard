@@ -8,6 +8,7 @@ const CONSTANTS={
     CUSTOMER_URL:"customers",
     CUSTOMER_POST_URL:"customer",
     AGENT_URL:"agents",
+    AGENT_POST_URL:"agent",
     AROUND_URL:"arounds",
     AROUND_POST_URL:"around",
     CONTROL_POINT_URL:"control-point",
@@ -30,7 +31,7 @@ const CONSTANTS={
     AGENT_COLUMNS:[
         {field: "nom", headerName:"NOM", width:120},
         {field:"prenom", headerName:"PRENOM", width:120},
-        {field:"username",headerName:"EMAIL",width:120},
+        {field:"email",headerName:"EMAIL",width:120},
         {field:"phoneNumber", headerName:"NUMERO DE TELEPHONE", width:120},
         {field:"birth", headerName:"DATE DE NAISSANCE", width:120},
         {field:"address",headerName:"ADRESSE POSTALE",width:120},

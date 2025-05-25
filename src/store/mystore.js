@@ -5,6 +5,7 @@ import { getCompany, putCompany } from "../services/companyService";
 import { deleteCustomer, getCustomer, postCustomer, putCustomer } from "../services/customerService";
 import { deleteAround, getMyArounds, postAround } from "../services/aroundService";
 import { deleteControlPoint, getControlPoints, postControlPoint } from "../services/controlPointService";
+import { postAgent } from "../services/agentService";
 //import { combine } from "zustand/middleware";
 
 
@@ -121,6 +122,9 @@ const useLoginStore = create(persist((set)=>({
         deleteControlPoint(token,controlPointId);
         updateControlPoints(controlPointId);
     },
+    saveAgent(token, agent){
+        postAgent(token,agent,refreshAgents);
+    },
 }),{name:CONSTANTS.STORE_NAME}));
 
 const updateArounds=(value)=>{
@@ -130,7 +134,7 @@ const updateArounds=(value)=>{
 }
 const updateControlPoints=(id)=>{
     useLoginStore.setState((state)=>({...state,
-        controlPoints:[...state.controlPoints].filter(item=>item.id!=id)
+        controlPoints:[...state.controlPoints].filter(item=>item.id!==id)
      })) 
 }
 
@@ -139,9 +143,15 @@ const refreshControlPoints=(value)=>{
         controlPoints:[...state.controlPoints,value]
      })) 
 }
+
+const refreshAgents=(value)=>{
+    useLoginStore.setState((state)=>({...state,
+        agents:[...state.agents,value]
+     })) 
+}
 const updateCustomers=(customerId)=>{
     useLoginStore.setState((state)=>({...state,
-    customers:[...state.customers].filter(item=>item.id!=customerId)
+    customers:[...state.customers].filter(item=>item.id!==customerId)
  })) 
 }
 const refreshCustomers=(customers)=>{
@@ -151,7 +161,7 @@ const refreshCustomers=(customers)=>{
 }
 const deleteElementInArounds=(id)=>{
     useLoginStore.setState((state)=>({...state,
-        arounds:[...state.arounds.filter(item=>item.id!=id)]
+        arounds:[...state.arounds.filter(item=>item.id!==id)]
      })) 
 } 
 const updated=(data)=>{
